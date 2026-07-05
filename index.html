@@ -1,216 +1,412 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Routinai - Play Your Life. Level Up Your Day.</title>
+    
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS (CDN) 및 커스텀 컬러 설정 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', 'sans-serif'],
+                    },
+                    colors: {
+                        routinai: {
+                            neon: '#00ff66',
+                            dark: '#050505',
+                            panel: 'rgba(20, 20, 20, 0.7)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-        
-        :root {
-            --bg-dark: #0a0a0a;
-            --text-light: #ffffff;
-            --neon-green: #00ff66;
-            --dark-gray: #1a1a1a;
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
         }
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: 'Pretendard', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            scroll-behavior: smooth;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 50px;
-            background-color: rgba(10, 10, 10, 0.9);
+        /* 3D 배경 캔버스 */
+        #bg-canvas {
             position: fixed;
-            width: 100%;
             top: 0;
-            z-index: 1000;
-            box-sizing: border-box;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+        /* 네온 텍스트 효과 */
+        .glow-text {
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.7), 0 0 20px rgba(0, 255, 102, 0.5);
         }
 
-        .hero-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            padding: 0 20px;
-            background: radial-gradient(circle at center, #112211 0%, var(--bg-dark) 60%);
+        /* 글래스모피즘(유리) 패널 효과 */
+        .glass-panel {
+            background: rgba(15, 15, 15, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
         }
 
-        .slogan {
-            font-size: 48px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            line-height: 1.2;
+        /* 프로젝트 카드 호버 효과 */
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ff66;
+            box-shadow: 0 15px 40px rgba(0, 255, 102, 0.2);
         }
 
-        .sub-slogan {
-            font-size: 20px;
-            color: #aaaaaa;
-            margin-bottom: 40px;
+        /* 스크롤바 커스텀 */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-
-        .highlight {
-            color: var(--neon-green);
+        ::-webkit-scrollbar-track {
+            background: #050505; 
         }
-
-        /* 2011.07.01 트레일러 탑재를 위한 세로형 영상 컨테이너 */
-        .video-trailer-container {
-            width: 300px;
-            height: 533px;
-            border: 2px solid var(--neon-green);
-            border-radius: 20px;
-            margin: 40px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #000;
-            box-shadow: 0 0 30px rgba(0, 255, 102, 0.2);
-            position: relative;
-            overflow: hidden;
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+            border-radius: 4px;
         }
-
-        .video-trailer-container p {
-            color: #555;
-            font-size: 14px;
-            z-index: 2;
-        }
-
-        .section {
-            padding: 100px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 36px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--neon-green);
-            display: inline-block;
-            padding-bottom: 10px;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .card {
-            background-color: var(--dark-gray);
-            padding: 30px;
-            border-radius: 15px;
-            border-left: 4px solid var(--neon-green);
-        }
-
-        .card h3 {
-            font-size: 24px;
-            margin-top: 0;
-        }
-
-        .card p {
-            line-height: 1.6;
-            color: #cccccc;
-        }
-
-        footer {
-            text-align: center;
-            padding: 50px 20px;
-            background-color: var(--dark-gray);
-            margin-top: 50px;
-        }
-
-        .contact-btn {
-            display: inline-block;
-            padding: 15px 40px;
-            background-color: var(--neon-green);
-            color: var(--bg-dark);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .contact-btn:hover {
-            box-shadow: 0 0 20px var(--neon-green);
-            transform: translateY(-2px);
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00ff66; 
         }
     </style>
 </head>
-<body>
+<body class="antialiased selection:bg-routinai-neon selection:text-black relative">
 
-    <header>
-        <div class="logo">Routinai</div>
-        <a href="mailto:routinai.soft@gmail.com" style="color: white; text-decoration: none;">Contact Us</a>
-    </header>
+    <canvas id="bg-canvas"></canvas>
 
-    <div class="hero-section">
-        <h1 class="slogan">지루한 일상은 끝났다.<br>이제 당신의 삶을 <span class="highlight">플레이</span>하세요.</h1>
-        <p class="sub-slogan">Play Your Life. Level Up Your Day.</p>
-        
-        <!-- 세로형 메인 트레일러 영역 -->
-        <div class="video-trailer-container">
-            <!-- 영상 태그 예시: <video src="trailer.mp4" autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;"></video> -->
-            <p>[ 2011.07.01 ]<br>세로형 무음 트레일러 재생 영역</p>
-        </div>
-
-        <a href="#about" class="contact-btn">세계관 알아보기</a>
-    </div>
-
-    <div id="about" class="section">
-        <h2 class="section-title">Project : RE-BOOT</h2>
-        <p style="font-size: 18px; line-height: 1.8; color: #dddddd;">
-            가까운 미래, 인류는 모든 것이 자동화된 세상에서 극심한 무력감과 지루함에 빠져 활력을 잃어버리는 <strong>'엔트로피 증후군'</strong>에 걸리게 됩니다. 서서히 잠에 빠져들며 멈춰가는 세상을 깨울 유일한 시스템, 그것이 바로 <strong>Routinai</strong>입니다. 당신의 지루한 일상(Routine)을 우주를 구하는 에너지원(Mana)으로 변환하십시오.
-        </p>
-
-        <div class="grid-container">
-            <div class="card">
-                <h3>🎮 Gamification</h3>
-                <p>아침에 일어나기, 물 마시기, 청소하기. 지루하고 반복적인 일상을 짜릿한 퀘스트와 보스 레이드로 바꿉니다. 일상을 완수하고 레벨업하세요.</p>
-            </div>
-            <div class="card">
-                <h3>🤖 AI Companionship</h3>
-                <p>단순한 알람 타이머가 아닙니다. 유저의 성향을 분석해 매칭된 맞춤형 AI 가디언이 파트너가 되어 당신의 여정과 성장을 매일 함께합니다.</p>
+    <nav class="fixed w-full top-0 z-50 transition-all duration-300 glass-panel border-b border-gray-800" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="text-3xl font-black tracking-tighter text-white">Routin<span class="text-routinai-neon">ai</span></span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#vision" class="text-gray-300 hover:text-routinai-neon hover:glow-text px-3 py-2 rounded-md text-sm font-bold transition-all">VISION</a>
+                        <a href="#projects" class="text-gray-300 hover:text-routinai-neon hover:glow-text px-3 py-2 rounded-md text-sm font-bold transition-all">PROJECTS</a>
+                        <a href="#contact" class="bg-white text-black hover:bg-routinai-neon px-5 py-2.5 rounded-full text-sm font-black transition-all shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_20px_rgba(0,255,102,0.6)]">CONTACT</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <div class="section" style="text-align: center;">
-        <h2 class="section-title">1st Flagship : 엑스 마키나</h2>
-        <p style="font-size: 18px; line-height: 1.8; color: #dddddd; margin-bottom: 40px;">
-            현실의 루틴 달성이 곧 게임 내 캐릭터의 스탯 상승으로 이어지는 일상 밀착형 라이프 RPG.<br>로그라이크 일상 던전을 클리어하고, Routine Squad 길드원들과 함께 거대 보스를 처치하세요.
-        </p>
-        <a href="mailto:routinai.soft@gmail.com" class="contact-btn">사전 예약 문의하기</a>
-    </div>
+    <main>
+        <section class="relative h-screen flex items-center justify-center pt-20 px-4">
+            <div class="text-center z-10">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-routinai-neon/30 bg-routinai-neon/10 backdrop-blur-md mb-8">
+                    <span class="w-2 h-2 rounded-full bg-routinai-neon animate-pulse"></span>
+                    <span class="text-routinai-neon text-xs md:text-sm font-bold tracking-widest uppercase">Project : RE-BOOT</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight tracking-tight text-white drop-shadow-2xl">
+                    지루한 일상은 끝났다.<br>
+                    당신의 삶을 <span class="text-routinai-neon glow-text">플레이</span>하라.
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-400 mb-12 font-medium max-w-3xl mx-auto leading-relaxed">
+                    엔트로피 증후군으로 멈춰가는 세상.<br class="hidden md:block">
+                    지루한 일상(Routine)을 마나(Mana)로 바꾸는 궁극의 AI 시스템이 가동됩니다.
+                </p>
+                <a href="#projects" class="inline-flex items-center justify-center gap-3 bg-transparent border-2 border-routinai-neon text-routinai-neon font-bold text-lg px-8 py-4 rounded-full hover:bg-routinai-neon hover:text-black transition-all duration-300 shadow-[0_0_20px_rgba(0,255,102,0.2)] hover:shadow-[0_0_30px_rgba(0,255,102,0.6)] group">
+                    <span>프로젝트 확인하기</span>
+                    <i class="fa-solid fa-arrow-down group-hover:translate-y-1 transition-transform"></i>
+                </a>
+            </div>
+            
+            <!-- 스크롤 유도 아이콘 -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+                <i class="fa-solid fa-angles-down text-routinai-neon text-2xl opacity-70"></i>
+            </div>
+        </section>
 
-    <footer>
-        <h2 class="logo" style="margin-bottom: 10px;">Routinai</h2>
-        <p>당신의 24시간을 레벨업하는 AI 게임 스튜디오</p>
-        <p style="color: #666; font-size: 14px; margin-top: 30px;">
-            Email: routinai.soft@gmail.com<br>
-            &copy; 2026 Routinai. All rights reserved.
-        </p>
+        <section id="vision" class="py-32 px-4 relative z-10">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-3xl md:text-5xl font-black text-white mb-6">Game Changer of <span class="text-routinai-neon">Daily Life</span></h2>
+                    <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
+                        우리는 일상을 가장 짜릿한 퀘스트로 바꾸는 AI 게임 스튜디오입니다.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+                    <div class="glass-panel p-10 rounded-3xl project-card group">
+                        <div class="w-16 h-16 rounded-2xl bg-gray-900 flex items-center justify-center mb-8 border border-gray-700 group-hover:border-routinai-neon transition-colors">
+                            <i class="fa-solid fa-gamepad text-routinai-neon text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-4 text-white">Gamification</h3>
+                        <p class="text-gray-400 leading-relaxed text-lg">
+                            아침에 일어나기, 물 마시기, 청소하기. 지루한 반복을 보스 레이드로 바꿉니다. 당신의 24시간을 레벨업하세요.
+                        </p>
+                    </div>
+                    <div class="glass-panel p-10 rounded-3xl project-card group">
+                        <div class="w-16 h-16 rounded-2xl bg-gray-900 flex items-center justify-center mb-8 border border-gray-700 group-hover:border-routinai-neon transition-colors">
+                            <i class="fa-solid fa-robot text-routinai-neon text-3xl"></i>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold mb-4 text-white">AI Companionship</h3>
+                        <p class="text-gray-400 leading-relaxed text-lg">
+                            단순한 타이머가 아닙니다. 유저의 성향을 분석해 매칭된 맞춤형 AI 파트너가 매일 당신의 성장을 함께합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-32 px-4 relative z-10 bg-gradient-to-b from-transparent to-black/80">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-black text-center mb-24 text-white">
+                    Our <span class="text-routinai-neon border-b-4 border-routinai-neon pb-2">Projects</span>
+                </h2>
+
+                <!-- 프로젝트 1: NewLife -->
+                <div class="flex flex-col lg:flex-row gap-12 items-center mb-32 glass-panel p-8 md:p-12 rounded-[2.5rem] border border-gray-800 relative overflow-hidden">
+                    <!-- 배경 장식 효과 -->
+                    <div class="absolute -top-32 -right-32 w-96 h-96 bg-routinai-neon/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+                    <div class="w-full lg:w-1/2 order-2 lg:order-1 relative z-10">
+                        <span class="px-4 py-1.5 bg-routinai-neon/20 text-routinai-neon text-sm font-bold rounded-full border border-routinai-neon/50 mb-6 inline-block">Flagship Simulation Game</span>
+                        <h3 class="text-3xl md:text-4xl font-black mb-4 text-white">한 번 더 기회가 주어진다면</h3>
+                        <p class="text-xl text-gray-300 mb-8 font-medium">"2011년, 다시 시작되는 선택"</p>
+                        <p class="text-gray-400 leading-relaxed mb-8 text-lg">
+                            삶과 투자를 후회하던 45세 주인공이 조상신의 '후회시계'를 받고 15년 전으로 회귀합니다. 
+                            단순한 치트 게임이 아닙니다. 정답은 봉인되었고 남은 것은 흐릿한 감각뿐. 당신의 생활 선택이 실제 KOSPI/KOSDAQ 데이터 기반의 운명을 결정짓는 세로형 라이프 시뮬레이션입니다.
+                        </p>
+                        <ul class="space-y-4 text-gray-300 font-medium bg-black/50 p-6 rounded-2xl border border-gray-800">
+                            <li class="flex items-start"><i class="fa-solid fa-check-circle text-routinai-neon mr-4 mt-1 text-lg"></i><span><strong>2D 탄막 회피:</strong> 주사위가 아닌 컨트롤로 시장의 루머를 돌파하라</span></li>
+                            <li class="flex items-start"><i class="fa-solid fa-check-circle text-routinai-neon mr-4 mt-1 text-lg"></i><span><strong>실데이터 연동:</strong> 2011-2026년 실제 500개 종목 데이터 자동투자 시스템</span></li>
+                            <li class="flex items-start"><i class="fa-solid fa-check-circle text-routinai-neon mr-4 mt-1 text-lg"></i><span><strong>멀티 엔딩:</strong> 후회 없는 가장부터 탐욕에 삼켜진 투자자까지 9개의 결말</span></li>
+                        </ul>
+                    </div>
+                    <div class="w-full lg:w-1/2 order-1 lg:order-2 flex justify-center relative z-10">
+                        <!-- 모바일 목업 UI (CSS만으로 구현) -->
+                        <div class="relative w-[280px] h-[560px] rounded-[3rem] border-[12px] border-gray-900 bg-gray-950 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col">
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-900 rounded-b-xl z-20"></div>
+                            
+                            <!-- 목업 내부 콘텐츠 -->
+                            <div class="flex-1 p-6 flex flex-col justify-center relative">
+                                <div class="absolute inset-0 bg-[url('https://placehold.co/400x800/111/222?text=Stock+Chart+Grid')] opacity-20 bg-cover"></div>
+                                <div class="relative z-10 text-center">
+                                    <h4 class="text-routinai-neon font-black text-2xl mb-2">2011. Q3</h4>
+                                    <p class="text-gray-400 text-sm mb-8">순자산: -14,000,000 원</p>
+                                    
+                                    <div class="space-y-4">
+                                        <div class="bg-gray-800/80 p-4 rounded-xl border border-gray-700 backdrop-blur-sm">
+                                            <p class="text-white text-sm font-bold mb-1">건강 관리</p>
+                                            <div class="w-full bg-gray-900 rounded-full h-2"><div class="bg-blue-500 h-2 rounded-full w-3/4"></div></div>
+                                        </div>
+                                        <div class="bg-gray-800/80 p-4 rounded-xl border border-gray-700 backdrop-blur-sm">
+                                            <p class="text-white text-sm font-bold mb-1">가족 유대</p>
+                                            <div class="w-full bg-gray-900 rounded-full h-2"><div class="bg-pink-500 h-2 rounded-full w-1/2"></div></div>
+                                        </div>
+                                        <div class="bg-gray-800/80 p-4 rounded-xl border border-gray-700 backdrop-blur-sm border-routinai-neon/50">
+                                            <p class="text-routinai-neon text-sm font-bold mb-1"><i class="fa-solid fa-bolt mr-2"></i>시장 탐방 (탄막 미니게임)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 프로젝트 2: KeepMyFavorites -->
+                <div class="flex flex-col lg:flex-row gap-12 items-center glass-panel p-8 md:p-12 rounded-[2.5rem] border border-gray-800 relative overflow-hidden">
+                    <div class="w-full lg:w-1/2 flex justify-center relative z-10">
+                        <div class="relative w-[280px] h-[560px] rounded-[3rem] border-[12px] border-gray-900 bg-gray-950 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col">
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-900 rounded-b-xl z-20"></div>
+                            <div class="flex-1 p-6 flex flex-col mt-8 relative z-10">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h4 class="text-white font-bold text-lg">My Favorites</h4>
+                                    <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+                                </div>
+                                <div class="space-y-3">
+                                    <!-- 목업 아이템 -->
+                                    <div class="bg-gray-800 p-4 rounded-2xl flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400"><i class="fa-solid fa-link"></i></div>
+                                        <div><p class="text-white text-sm font-bold">기획 참고 레퍼런스</p><p class="text-gray-500 text-xs">URL · 방금 전</p></div>
+                                    </div>
+                                    <div class="bg-gray-800 p-4 rounded-2xl flex items-center gap-4 border border-routinai-neon/30 relative overflow-hidden">
+                                        <div class="absolute top-0 left-0 w-1 h-full bg-routinai-neon"></div>
+                                        <div class="w-10 h-10 rounded-full bg-routinai-neon/20 flex items-center justify-center text-routinai-neon"><i class="fa-solid fa-robot"></i></div>
+                                        <div>
+                                            <p class="text-white text-sm font-bold">아이디어 회의록</p>
+                                            <p class="text-routinai-neon text-xs mt-1">✨ AI 요약: 다음 주까지 프로토타입 완성 필요</p>
+                                        </div>
+                                    </div>
+                                    <div class="bg-gray-800 p-4 rounded-2xl flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center text-red-400"><i class="fa-solid fa-lock"></i></div>
+                                        <div><p class="text-white text-sm font-bold">보안 계정 정보</p><p class="text-gray-500 text-xs">암호화됨</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-1/2 relative z-10">
+                        <span class="px-4 py-1.5 bg-gray-800 text-gray-300 text-sm font-bold rounded-full border border-gray-600 mb-6 inline-block">Native Utility App</span>
+                        <h3 class="text-3xl md:text-4xl font-black mb-4 text-white">KeepMyFavorites</h3>
+                        <p class="text-xl text-gray-300 mb-8 font-medium">"필요한 순간 바로 꺼내는 개인 보관함"</p>
+                        <p class="text-gray-400 leading-relaxed mb-8 text-lg">
+                            검색어, URL, 이미지, 메모, 이모티콘 시트를 카테고리별로 저장해 두고 필요할 때 즉시 실행하는 안드로이드 네이티브 앱입니다. 무거운 동기화 없이 로컬에서 가장 빠르고 조용하게 작동합니다.
+                        </p>
+                        <ul class="space-y-4 text-gray-300 font-medium bg-black/50 p-6 rounded-2xl border border-gray-800">
+                            <li class="flex items-start"><i class="fa-solid fa-shield-halved text-routinai-neon mr-4 mt-1 text-lg"></i><span><strong>강력한 보안:</strong> AES-256 암호화 및 패턴/비밀번호 잠금 지원</span></li>
+                            <li class="flex items-start"><i class="fa-solid fa-sparkles text-routinai-neon mr-4 mt-1 text-lg"></i><span><strong>AI 메모 요약:</strong> Cloudflare Worker 연동 서버리스 AI 한 줄 요약</span></li>
+                            <li class="flex items-start"><i class="fa-solid fa-images text-routinai-neon mr-4 mt-1 text-lg"></i><span><strong>이모티콘 스플리터:</strong> 시트 이미지를 그리드로 분할하여 메신저 즉시 공유</span></li>
+                            <li class="flex items-start"><i class="fa-solid fa-calendar-moon text-routinai-neon mr-4 mt-1 text-lg"></i><span><strong>음력 연간 알람:</strong> 한국 사용자 맞춤형 음력 기반 알림 지원</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="bg-[#030303] py-20 border-t border-gray-800 text-center px-4 relative z-10">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black mb-6 text-white tracking-tight">Ready to <span class="text-routinai-neon glow-text">Re-boot?</span></h2>
+            <p class="text-gray-400 mb-10 font-medium text-xl">Routinai와 함께 일상의 게임 체인저가 되실 파트너를 기다립니다.</p>
+            
+            <a href="mailto:routinai.soft@gmail.com" class="inline-flex items-center gap-3 bg-white text-black font-black text-xl px-10 py-5 rounded-full hover:bg-routinai-neon transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(0,255,102,0.8)] hover:-translate-y-1">
+                <i class="fa-regular fa-envelope"></i>
+                routinai.soft@gmail.com
+            </a>
+            
+            <div class="mt-20 pt-8 border-t border-gray-900 flex flex-col md:flex-row items-center justify-between text-sm text-gray-600">
+                <div class="font-black text-xl mb-4 md:mb-0 text-gray-500 tracking-tighter">Routin<span class="text-gray-700">ai</span></div>
+                <p>&copy; 2026 Routinai Studio. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        window.onload = function() {
+            // Three.js 씬 설정
+            const canvas = document.getElementById('bg-canvas');
+            const scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x050505, 0.0015); // 배경색과 부드럽게 이어지는 안개 효과
+
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2000);
+            camera.position.z = 1000;
+
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+
+            // 파티클(마나/데이터) 생성
+            const particleCount = 2000;
+            const geometry = new THREE.BufferGeometry();
+            const positions = [];
+            const velocities = [];
+
+            for (let i = 0; i < particleCount; i++) {
+                // x, y, z 좌표 랜덤 배치 (워프 효과를 위해 z축을 깊게 설정)
+                positions.push(
+                    (Math.random() - 0.5) * 2000, 
+                    (Math.random() - 0.5) * 2000, 
+                    (Math.random() - 0.5) * 2000
+                );
+                // 이동 속도 (z축으로 다가오게 설정하여 전진하는 느낌 부여)
+                velocities.push(0, 0, Math.random() * 2 + 1);
+            }
+
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+
+            // 파티클 재질 (네온 그린 빛)
+            const material = new THREE.PointsMaterial({
+                color: 0x00ff66,
+                size: 3,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending // 빛이 겹치면 밝아지는 효과
+            });
+
+            const particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            // 마우스 상호작용 변수
+            let mouseX = 0;
+            let mouseY = 0;
+            let targetX = 0;
+            let targetY = 0;
+            const windowHalfX = window.innerWidth / 2;
+            const windowHalfY = window.innerHeight / 2;
+
+            document.addEventListener('mousemove', onDocumentMouseMove, false);
+
+            function onDocumentMouseMove(event) {
+                mouseX = (event.clientX - windowHalfX) * 0.05;
+                mouseY = (event.clientY - windowHalfY) * 0.05;
+            }
+
+            // 창 크기 조절 대응
+            window.addEventListener('resize', onWindowResize, false);
+
+            function onWindowResize() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+
+            // 애니메이션 루프
+            function animate() {
+                requestAnimationFrame(animate);
+
+                // 카메라 부드러운 마우스 추적
+                targetX = mouseX * 0.5;
+                targetY = mouseY * 0.5;
+                camera.position.x += (targetX - camera.position.x) * 0.05;
+                camera.position.y += (-targetY - camera.position.y) * 0.05;
+                camera.lookAt(scene.position);
+
+                // 파티클 전진 애니메이션 (워프 속도감)
+                const positions = particles.geometry.attributes.position.array;
+                for (let i = 0; i < particleCount; i++) {
+                    const i3 = i * 3;
+                    positions[i3 + 2] += velocities[i]; // Z축 증가 (앞으로 다가옴)
+                    
+                    // 카메라 뒤로 넘어간 파티클은 다시 멀리 배치
+                    if (positions[i3 + 2] > 1000) {
+                        positions[i3 + 2] = -1000;
+                        positions[i3] = (Math.random() - 0.5) * 2000;
+                        positions[i3 + 1] = (Math.random() - 0.5) * 2000;
+                    }
+                }
+                particles.geometry.attributes.position.needsUpdate = true;
+
+                // 씬 전체 아주 느린 회전
+                particles.rotation.z += 0.001;
+
+                renderer.render(scene, camera);
+            }
+
+            // 스크롤 시 헤더 배경 처리 보강
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    nav.style.background = 'rgba(10, 10, 10, 0.85)';
+                    nav.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.8)';
+                } else {
+                    nav.style.background = 'rgba(15, 15, 15, 0.4)';
+                    nav.style.boxShadow = 'none';
+                }
+            });
+
+            animate();
+        };
+    </script>
 </body>
 </html>
