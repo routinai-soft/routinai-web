@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내맘속에 저장 - KeepMyFavorites</title>
+    
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            dark: '#0a0a0a',
+                            neon: '#00ff66',
+                            card: '#141414'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #0a0a0a; color: #f0f0f0; }
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #ffffff, #aaaaaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-neon selection:text-black">
+
+    <!-- Header Navigation -->
+    <nav class="fixed w-full top-0 z-50 glass-panel border-b border-gray-800">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-bookmark text-brand-neon text-xl"></i>
+                <span class="font-bold text-lg tracking-tight">KeepMyFavorites</span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-sm font-medium text-gray-400">
+                <a href="#features" class="hover:text-white transition">저장 유형</a>
+                <a href="#security" class="hover:text-white transition">보안/알림</a>
+                <a href="#ai" class="hover:text-white transition">AI 요약</a>
+                <a href="#backup" class="hover:text-white transition">백업</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-4 relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-neon/5 rounded-full blur-[120px] -z-10"></div>
+        <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+            <div class="w-full lg:w-1/2 text-center lg:text-left">
+                <span class="px-4 py-1.5 bg-brand-neon/10 text-brand-neon text-sm font-bold rounded-full border border-brand-neon/30 mb-6 inline-block">Native Utility App</span>
+                <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight text-gradient">
+                    내맘속에 저장:<br>필요한 순간 바로 여는<br>개인 즐겨찾기
+                </h1>
+                <p class="text-xl text-gray-400 mb-8 leading-relaxed font-medium">
+                    무거운 동기화 없이 로컬에서 가장 빠르고 조용하게.<br>
+                    검색어, URL, 사진, 메모, 이모티콘 시트까지 카테고리별로 저장해 두고 필요할 때 즉시 꺼내 쓰세요.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <button class="bg-brand-neon text-black font-bold px-8 py-3.5 rounded-full hover:bg-white transition flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-google-play"></i> Google Play (준비중)
+                    </button>
+                    <a href="#features" class="bg-gray-800 text-white font-bold px-8 py-3.5 rounded-full hover:bg-gray-700 border border-gray-700 transition text-center">
+                        기능 살펴보기
+                    </a>
+                </div>
+            </div>
+            <div class="w-full lg:w-1/2 flex justify-center">
+                <!-- 홈 화면 더미 이미지 영역 -->
+                <img src="https://placehold.co/320x640/111/00ff66?text=Home+Screen\nList+&+Categories" alt="Home Screen" class="rounded-[2.5rem] border-8 border-gray-900 shadow-2xl rotate-2 hover:rotate-0 transition duration-500">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 px-4 bg-brand-card/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-black mb-4">다양한 항목을 체계적으로</h2>
+                <p class="text-gray-400 text-lg">5가지 특화된 저장 유형으로 모든 정보를 맞춤 관리합니다.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="glass-panel p-8 rounded-2xl">
+                    <div class="w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl mb-6"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <h3 class="text-xl font-bold mb-3">검색어 (Text)</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">자주 찾는 맛집, 약 이름, 쇼핑 키워드를 저장하고 탭 한 번으로 기본 검색 엔진에서 바로 검색합니다.</p>
+                    <img src="https://placehold.co/400x200/222/666?text=Type:+Search+Picker" alt="Search Picker" class="rounded-lg w-full">
+                </div>
+                <!-- Feature 2 -->
+                <div class="glass-panel p-8 rounded-2xl">
+                    <div class="w-12 h-12 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-xl mb-6"><i class="fa-solid fa-link"></i></div>
+                    <h3 class="text-xl font-bold mb-3">웹사이트 (URL)</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">나중에 읽을 기사나 자주 가는 웹사이트를 북마크처럼 저장합니다. 탭하면 브라우저로 열립니다.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="glass-panel p-8 rounded-2xl">
+                    <div class="w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-6"><i class="fa-solid fa-image"></i></div>
+                    <h3 class="text-xl font-bold mb-3">사진 (Image)</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">신분증 사본, 바코드, 영수증 캡처 등을 보관합니다. 내장된 뷰어로 확대/축소하여 볼 수 있습니다.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="glass-panel p-8 rounded-2xl">
+                    <div class="w-12 h-12 rounded-full bg-yellow-500/20 text-yellow-400 flex items-center justify-center text-xl mb-6"><i class="fa-solid fa-note-sticky"></i></div>
+                    <h3 class="text-xl font-bold mb-3">메모 (Memo)</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">AI 프롬프트, 짧은 생각, 텍스트 복사가 필요한 내용을 저장합니다. 빠른 복사와 열람을 지원합니다.</p>
+                </div>
+                <!-- Feature 5 -->
+                <div class="glass-panel p-8 rounded-2xl lg:col-span-2 flex flex-col md:flex-row gap-6 items-center">
+                    <div class="flex-1">
+                        <div class="w-12 h-12 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl mb-6"><i class="fa-solid fa-icons"></i></div>
+                        <h3 class="text-xl font-bold mb-3">이모티콘 시트 분할</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">통짜 이미지로 된 이모티콘 시트를 행렬로 잘라 저장합니다. 채팅창에 특정 칸의 이모티콘만 즉시 공유(ACTION_SEND)할 수 있습니다.</p>
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <!-- 이모티콘 더미 이미지 -->
+                        <img src="https://placehold.co/400x200/222/666?text=Emoticon+Split+Grid" alt="Emoticon Split" class="rounded-lg w-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI & Alarm Section -->
+    <section id="ai" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-center">
+            <div class="w-full md:w-1/2 relative">
+                <!-- AI & Alarm 더미 이미지 -->
+                <img src="https://placehold.co/400x600/111/00ff66?text=Memo+Detail\n+AI+Summary\n+Alarm+Badge" alt="AI Summary" class="rounded-3xl border-4 border-gray-800 mx-auto shadow-xl z-10 relative">
+                <div class="absolute -bottom-10 -right-10 text-6xl text-brand-neon opacity-20"><i class="fa-solid fa-sparkles"></i></div>
+            </div>
+            <div class="w-full md:w-1/2">
+                <h2 class="text-3xl md:text-4xl font-black mb-6">스마트한 AI 요약과 잊지 않는 알림</h2>
+                <ul class="space-y-8">
+                    <li class="flex gap-4">
+                        <div class="mt-1 text-brand-neon"><i class="fa-solid fa-wand-magic-sparkles text-2xl"></i></div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2 text-white">서버리스 AI 한 줄 요약</h4>
+                            <p class="text-gray-400 leading-relaxed">긴 메모를 저장할 때 Cloudflare 기반의 AI가 내용을 한 줄로 요약해 줍니다. 긴 글을 열지 않고도 내용을 파악하세요. (선택 사항)</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <div class="mt-1 text-brand-neon"><i class="fa-solid fa-calendar-check text-2xl"></i></div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2 text-white">정밀한 일정 및 연간 반복</h4>
+                            <p class="text-gray-400 leading-relaxed">항목마다 특정 시간에 알람을 설정할 수 있습니다. 홈 화면 상단에서 다음 알람까지 남은 시간을 확인하세요.</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <div class="mt-1 text-brand-neon"><i class="fa-solid fa-moon text-2xl"></i></div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2 text-white">음력 생일 / 기념일 완벽 지원</h4>
+                            <p class="text-gray-400 leading-relaxed">한국 사용자에게 필수적인 '음력 기준 연간 반복' 알람을 지원합니다. 윤달 옵션까지 꼼꼼하게 챙겼습니다.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security & Backup Section -->
+    <section id="security" class="py-20 px-4 bg-brand-card/50">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+            <!-- Security -->
+            <div class="glass-panel p-10 rounded-3xl border-t-4 border-t-red-500">
+                <h3 class="text-2xl font-black mb-4 flex items-center gap-3"><i class="fa-solid fa-shield-halved text-red-500"></i> 철저한 로컬 암호화</h3>
+                <p class="text-gray-400 mb-6 leading-relaxed">나만의 민감한 정보를 안전하게 보호합니다. 금융 정보나 일기 등은 철저히 기기 내에서만 암호화됩니다.</p>
+                <ul class="space-y-3 text-sm text-gray-300">
+                    <li><i class="fa-solid fa-check text-red-500 mr-2"></i> <strong>AES-256-GCM 암호화:</strong> 최고 수준의 암호화 규격 사용</li>
+                    <li><i class="fa-solid fa-check text-red-500 mr-2"></i> <strong>패턴 및 비밀번호:</strong> 3x3 패턴이나 텍스트 비밀번호로 이중 잠금</li>
+                    <li><i class="fa-solid fa-check text-red-500 mr-2"></i> <strong>픽셀화 미리보기:</strong> 잠긴 이미지는 화면에 보이지 않도록 모자이크 처리</li>
+                    <li><i class="fa-solid fa-check text-red-500 mr-2"></i> <strong>AI 요약 차단:</strong> 잠긴 항목은 서버로 데이터가 전송되는 요약 기능 강제 비활성</li>
+                </ul>
+                <div class="mt-8">
+                    <img src="https://placehold.co/400x150/331111/ff5555?text=Locked+Item+UI\n+Pixelated+Preview" alt="Security Lock" class="rounded-xl w-full border border-red-900/50">
+                </div>
+            </div>
+
+            <!-- Backup -->
+            <div class="glass-panel p-10 rounded-3xl border-t-4 border-t-blue-500">
+                <h3 class="text-2xl font-black mb-4 flex items-center gap-3"><i class="fa-solid fa-hard-drive text-blue-500"></i> 오프라인 JSON 백업</h3>
+                <p class="text-gray-400 mb-6 leading-relaxed">클라우드 서버에 내 정보를 넘기기 싫은 분들을 위해, 완전한 수동 파일 백업 및 복원을 지원합니다.</p>
+                <ul class="space-y-3 text-sm text-gray-300">
+                    <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> <strong>JSON 내보내기:</strong> 기기를 바꿀 때 파일 하나로 안전하게 이동</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> <strong>이미지 데이터 포함:</strong> 가능한 사진들은 Base64로 인코딩되어 포함</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> <strong>잠금 상태 유지:</strong> 암호화된 항목은 풀리지 않고 암호문 그대로 백업</li>
+                </ul>
+                <div class="mt-8">
+                    <img src="https://placehold.co/400x150/112233/55aaff?text=Export/Import\n+Settings+Screen" alt="Backup Export" class="rounded-xl w-full border border-blue-900/50">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 text-center border-t border-gray-800 mt-10">
+        <div class="mb-4">
+            <span class="font-bold text-xl tracking-tight text-gray-500">KeepMyFavorites</span>
+        </div>
+        <p class="text-sm text-gray-600 mb-2">Version 1.0.0 | &copy; 2026 Routinai Studio.</p>
+        <div class="text-sm text-gray-600 space-x-4">
+            <a href="#" class="hover:text-gray-300">개인정보처리방침</a>
+            <span>|</span>
+            <a href="mailto:routinai.soft@gmail.com" class="hover:text-gray-300">routinai.soft@gmail.com</a>
+        </div>
+    </footer>
+
+</body>
+</html>
