@@ -3,254 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Routinai | Play Your Life. Level Up Your Days.</title>
+    <title>Routinai - Play your life. Level up your days</title>
     <style>
         :root {
-            --bg-color: #0d0d0d;
-            --text-color: #ffffff;
-            --text-muted: #a0a0a0;
-            --neon-green: #39ff14;
-            --cyber-blue: #00f0ff;
-            --card-bg: #1a1a1a;
+            --bg-color: #ffffff;
+            --text-color: #111111;
+            --accent-color: #000000;
+            --gray: #f5f5f5;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
         }
-
         header {
+            padding: 20px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 50px;
-            background: rgba(13, 13, 13, 0.9);
-            position: fixed;
-            width: 100%;
+            border-bottom: 1px solid #eaeaea;
+            position: sticky;
             top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #333;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
         }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: var(--text-color);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .logo img {
+            height: 40px;
         }
-
-        .logo span {
-            color: var(--neon-green);
-        }
-
         nav a {
-            color: var(--text-color);
             text-decoration: none;
-            margin-left: 30px;
+            color: var(--text-color);
+            margin-left: 20px;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: opacity 0.2s;
         }
-
-        nav a:hover {
-            color: var(--neon-green);
-        }
-
+        nav a:hover { opacity: 0.6; }
         .hero {
-            padding: 150px 20px 100px;
+            padding: 120px 5%;
             text-align: center;
-            background: radial-gradient(circle at center, #1a2a1a 0%, var(--bg-color) 70%);
+            background: linear-gradient(to bottom, #f9f9f9, #ffffff);
         }
-
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
+            font-weight: 800;
             margin-bottom: 20px;
-            line-height: 1.2;
+            letter-spacing: -1px;
         }
-
-        .hero h1 .highlight {
-            color: var(--neon-green);
-            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
-        }
-
         .hero p {
             font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 40px;
-        }
-
-        .product-section {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: var(--cyber-blue);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px;
-            border: 1px solid #333;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 240, 255, 0.1);
-            border-color: var(--cyber-blue);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--text-color);
-        }
-
-        .feature-card p {
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        .screenshot-mockup {
-            width: 100%;
-            height: 200px;
-            background: #2a2a2a;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             color: #555;
-            font-size: 0.9rem;
-            border: 1px dashed #444;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
-
+        .two-track {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 60px 5%;
+            gap: 40px;
+        }
+        .track {
+            flex: 1;
+            min-width: 300px;
+            padding: 60px 40px;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+        }
+        .track:hover {
+            transform: translateY(-5px);
+        }
+        .track-life {
+            background-color: var(--gray);
+            border: 1px solid #eaeaea;
+        }
+        .track-play {
+            background-color: #111;
+            color: #fff;
+        }
+        .track h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .track p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .btn-black {
+            background: var(--text-color);
+            color: #fff;
+        }
+        .btn-black:hover { background: #333; }
+        .btn-white {
+            background: #fff;
+            color: #111;
+        }
+        .btn-white:hover { background: #ddd; }
         footer {
             text-align: center;
-            padding: 40px 20px;
-            background-color: #050505;
-            border-top: 1px solid #333;
-            margin-top: 50px;
-        }
-
-        footer p {
-            color: var(--text-muted);
+            padding: 40px 5%;
+            border-top: 1px solid #eaeaea;
+            color: #777;
             font-size: 0.9rem;
-            margin-bottom: 10px;
+            margin-top: 60px;
         }
-
-        .contact-info a {
-            color: var(--neon-green);
-            text-decoration: none;
-        }
-
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            header { flex-direction: column; gap: 15px; padding: 15px; }
-            nav a { margin-left: 15px; margin-right: 15px; }
+            .hero h1 { font-size: 2.2rem; }
+            .track { padding: 40px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="#" class="logo">Routinai<span>.</span></a>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#keepmyfavorites">KeepMyFavorites</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
+<header>
+    <div class="logo">
+        <img src="routinai_black_transparent_argb.png" alt="Routinai Logo">
+    </div>
+    <nav>
+        <a href="#life">Life</a>
+        <a href="#play">Play</a>
+        <a href="keepmyfavorites.html">KeepMyFavorites</a>
+    </nav>
+</header>
 
-    <section id="home" class="hero">
-        <h1>현실을 <span class="highlight">플레이</span>하다</h1>
-        <p>지루한 일상을 가장 짜릿한 퀘스트로 바꾸는 게임 체인저. <br>당신의 24시간을 레벨업하는 AI 스튜디오, 루티나이입니다.</p>
-    </section>
+<section class="hero">
+    <h1>완벽한 일상이<br>완벽한 일탈을 가능하게 한다</h1>
+    <p>Routinai는 AI 기술을 통해 당신의 일상을 완벽하게 정돈하고, 그렇게 확보된 시간 속에서 진정한 몰입과 즐거움을 선사합니다.</p>
+    <p style="font-weight: bold; font-size: 1.4rem;">"Play your life. Level up your days"</p>
+</section>
 
-    <section id="keepmyfavorites" class="product-section">
-        <div class="section-header">
-            <h2>KeepMyFavorites</h2>
-            <p>필요한 순간 바로 꺼내는 나만의 보관함 (내맘속에 저장)</p>
-        </div>
+<section class="two-track">
+    <div class="track track-life" id="life">
+        <h2>🛡️ Routinai Life<br><span style="font-size: 1.2rem; font-weight: 400;">이성의 영역</span></h2>
+        <p>철저히 프로페셔널하고 안전하며 직관적으로 일상의 효율과 정돈에 집중합니다. 사용자의 복잡한 정보를 안전하고 빠르게 관리하는 '두 번째 뇌(Second Brain)'이자 개인 금고 역할을 수행합니다.</p>
+        <a href="keepmyfavorites.html" class="btn btn-black">KeepMyFavorites 공식 페이지 →</a>
+    </div>
 
-        <div class="features-grid">
-            <!-- Feature 1 -->
-            <div class="feature-card">
-                <div class="screenshot-mockup">[ 카테고리 & 검색 화면 ]</div>
-                <h3>스마트한 분류와 탐색</h3>
-                <p>복잡한 소셜 앱이나 무거운 문서 도구는 잊으세요. 카테고리별 정리, 하트 중요 표시, 그리고 초고속 검색 필터로 나만의 즐겨찾기를 1초 만에 찾을 수 있습니다.</p>
-            </div>
+    <div class="track track-play" id="play">
+        <h2>🎮 Routinai Play<br><span style="font-size: 1.2rem; font-weight: 400; color:#ccc;">감성의 영역</span></h2>
+        <p>정돈된 일상에서 확보한 여유를 바탕으로, 일상에서 벗어나 새로운 차원의 이야기에 깊이 몰입하게 합니다. 압도적인 서사와 묵직한 몰입감을 제공하는 인터랙티브 스토리텔링 및 영상 콘텐츠입니다.</p>
+        <p style="font-size: 0.95rem; color: #999;"><strong>Upcoming Project: 회귀록 (가제)</strong><br>
+        모바일 환경에 최적화된 세로 화면(Vertical Format) 연출. 나래이션을 제거하고 디테일한 환경음과 텍스트 타격감만으로 극강의 긴장감을 조성합니다.</p>
+        <a href="#" class="btn btn-white" style="opacity: 0.5; cursor: not-allowed;">출시 준비 중</a>
+    </div>
+</section>
 
-            <!-- Feature 2 -->
-            <div class="feature-card">
-                <div class="screenshot-mockup">[ AI 메모 요약 화면 ]</div>
-                <h3>AI 한 줄 요약</h3>
-                <p>긴 메모를 저장하셨나요? 서버 AI가 메모 본문을 분석하여 한 줄로 요약해 드립니다. 본문을 열어보지 않아도 리스트에서 바로 핵심을 파악할 수 있습니다.</p>
-            </div>
-
-            <!-- Feature 3 -->
-            <div class="feature-card">
-                <div class="screenshot-mockup">[ 이모티콘 시트 분할 화면 ]</div>
-                <h3>이모티콘 시트 스마트 분할</h3>
-                <p>통짜 이미지로 된 이모티콘을 원하는 행과 열 개수만 입력해 그리드로 쪼개보세요. 메신저 대화 중 앱을 열어 원하는 표정만 탭하면 즉시 공유됩니다.</p>
-            </div>
-
-            <!-- Feature 4 -->
-            <div class="feature-card">
-                <div class="screenshot-mockup">[ 잠금 및 암호화 설정 화면 ]</div>
-                <h3>철저한 보안 & 알람</h3>
-                <p>비밀번호 및 3x3 패턴 잠금으로 나만의 비밀 항목을 완벽하게 보호합니다. 더불어 음력 윤달까지 지원하는 강력한 리마인더로 중요한 일정을 절대 놓치지 마세요.</p>
-            </div>
-
-            <!-- Feature 5 -->
-            <div class="feature-card">
-                <div class="screenshot-mockup">[ 5가지 포맷 저장 화면 ]</div>
-                <h3>다양한 포맷 완벽 지원</h3>
-                <p>나중에 찾아볼 검색어(문구), 나중에 읽을 URL(웹 링크), 텍스트 메모, 영수증 같은 이미지, 이모티콘까지 5가지 핵심 항목을 한 곳에 안전하게 보관하세요.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact">
-        <p>&copy; 2026 Routinai Soft. All rights reserved.</p>
-        <p class="contact-info">
-            제휴 및 고객 지원: <a href="mailto:routinai.soft@gmail.com">routinai.soft@gmail.com</a><br>
-            GitHub: <a href="https://routinai-soft.github.io/routinai-web/" target="_blank">routinai-soft.github.io/routinai-web/</a>
-        </p>
-    </footer>
+<footer>
+    <p>&copy; 2026 Routinai. All rights reserved.</p>
+    <p>Contact: routinai.soft@gmail.com</p>
+</footer>
 
 </body>
 </html>
